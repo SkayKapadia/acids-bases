@@ -254,6 +254,8 @@ window.LESSONS = [
     <div data-widget="chargeGame"></div>
   </div>
   <div data-checkin="11A-Q"></div>
+  <div data-checkin="WS3"></div>
+  <div data-checkin="WS4"></div>
   `,
   quiz: [
     { t: "mc", q: "An amphiprotic substance is one that…", o: ["can donate or accept a proton", "has more than one proton to donate", "is always neutral", "only reacts with water"], a: 0, why: "Amphiprotic = can act as an acid (donate H⁺) or a base (accept H⁺)." },
@@ -329,6 +331,7 @@ window.LESSONS = [
     <div class="note"><b>Exam tip:</b> if a diagram shows ONLY ions and no neutral molecules, it is a <b>strong</b> acid (whether concentrated or dilute). If neutral molecules are still there, it's <b>weak</b>.</div>
   </div>
   <div data-checkin="11B-Q"></div>
+  <div data-checkin="WS5"></div>
   `,
   quiz: [
     { t: "mc", q: "A strong acid is one that…", o: ["has a high concentration", "ionises completely in water", "has many hydrogen atoms", "has a pH of exactly 0"], a: 1, why: "Strength = extent of ionisation. Strong acids donate ALL their H⁺ (100% ionised)." },

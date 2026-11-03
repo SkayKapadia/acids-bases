@@ -5,7 +5,7 @@ An interactive, step-by-step study guide for Chapter 11 (Acids and bases). It is
 ## What's inside
 
 - **Learn** – 9 parts in textbook order (11A → 11E) with explanations, interactive visuals and step-by-step worked examples. Each part ends with a checkpoint quiz, and finishing the quiz unlocks the next part.
-- **Q&A** – every check-in, section and chapter-review question from the chapter, with worked answers. It's searchable and can be filtered by section.
+- **Q&A** – every check-in, section and chapter-review question from the chapter, plus class Worksheets 3, 4 and 5, with worked answers. The worksheets also appear at the end of the lessons they match (Parts 2 and 3). It's searchable and can be filtered by section.
 - **Glossary** – all key terms from the chapter.
 - **Final test** – unlocks after all 9 parts. It has about 29 mixed questions drawn from the whole chapter and gives an encouraging topic-by-topic breakdown.
 - **Chat helper** (💬 button) – the student types a question from the chapter and gets the answer. It also solves simple strong acid/base pH questions step by step. It runs entirely in the browser, uses no AI service and needs no internet connection.

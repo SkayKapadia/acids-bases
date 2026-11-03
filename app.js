@@ -256,8 +256,8 @@
     const set = window.QA.find((s) => s.id === id);
     if (!set) return;
     el.classList.add("checkin");
-    const isSection = /-Q$/.test(id);
-    el.innerHTML = `<div class="checkin-head" style="${isSection ? "background:#0b6bb8" : ""}"><span>${isSection ? "📚" : "✋"} ${set.title}</span><span style="font-size:.8rem;opacity:.85">Try first, then reveal</span></div>
+    const isSection = /-Q$/.test(id), isWS = /^WS/.test(id);
+    el.innerHTML = `<div class="checkin-head" style="${isSection ? "background:#0b6bb8" : isWS ? "background:#1d7a52" : ""}"><span>${isSection ? "📚" : isWS ? "📝" : "✋"} ${set.title}</span><span style="font-size:.8rem;opacity:.85">Try first, then reveal</span></div>
       <div class="checkin-body">${set.items.map((it) => `
         <div class="qa-item"><div class="qa-q"><span class="qa-num">${it.n}</span><div>${autoChem(fmt(esc(it.q)))}</div></div>
         <div class="reveal"><button class="btn small ghost">Show answer</button></div>
@@ -480,10 +480,10 @@
      Q&A tab + Glossary tab
      ------------------------------------------------------------------ */
   function renderQA() {
-    const sections = ["All", "11A", "11B", "11C", "11D", "11E", "Review"];
+    const sections = ["All", "11A", "11B", "11C", "11D", "11E", "Review", "Worksheets"];
     let filter = "All", term = "";
     const view = $("#view-qa");
-    view.innerHTML = `<div class="card"><h2>📚 Questions & Answers</h2><p>Every question from the chapter – check-ins, section questions and the chapter review – with fully worked answers. Try each one yourself <b>before</b> revealing the answer.</p>
+    view.innerHTML = `<div class="card"><h2>📚 Questions & Answers</h2><p>Every question from the chapter – check-ins, section questions and the chapter review – plus class Worksheets 3, 4 and 5, all with fully worked answers. Try each one yourself <b>before</b> revealing the answer.</p>
       <div class="toolbar"><input class="search" id="qaSearch" type="search" placeholder="Search questions… e.g. pH, conjugate, H2SO4" aria-label="Search questions">
       <div class="filter-chips">${sections.map((s) => `<button data-f="${s}" aria-pressed="${s === "All"}">${s}</button>`).join("")}</div>
       <button class="btn small ghost" id="qaExpand">Show all answers</button></div></div><div id="qaList"></div>`;
@@ -621,6 +621,12 @@
 
   // Direct reference, e.g. "11C question 9", "11A set 1 q 3"
   function directRef(text) {
+    const w = normText(text).match(/\b(?:worksheet|ws)\s*([345])\b.*?\b(?:q(?:uestion)?\.?\s*#?\s*(\d)|(exit))/);
+    if (w) {
+      const set = window.QA.find((s) => s.id === "WS" + w[1]);
+      const it = set && set.items.find((x) => x.n === (w[3] ? "Exit" : w[2]));
+      return it ? [{ q: it.q, a: it.a, src: `${set.title} · Q${it.n}` }] : null;
+    }
     const m = normText(text).match(/\b11\s*([a-e])\b(?:.*?set\s*([123]))?.*?\bq(?:uestion)?\.?\s*#?\s*(\d+\s*[a-f]?)\b/);
     if (!m) return null;
     const sec = "11" + m[1].toUpperCase(), id = m[2] ? `${sec}-S${m[2]}` : `${sec}-Q`;

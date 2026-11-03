@@ -4,6 +4,26 @@
    Chemistry inside $...$ is auto-formatted: H2SO4 -> H₂SO₄, ^2- -> ²⁻,
    -> becomes →, <=> becomes ⇌.
    ===================================================================== */
+/* Particle sketch used in the Worksheet 5 answers (strong dilute vs weak concentrated) */
+window.wsSketch = function () {
+  const H = (x, y) => `<circle cx="${x}" cy="${y}" r="4.5" fill="#f6c21c" stroke="#b58a00" stroke-width="1"/>`;
+  const Cl = (x, y) => `<circle cx="${x}" cy="${y}" r="9" fill="#e8743b" stroke="#a84a1c" stroke-width="1"/>`;
+  const A = (x, y) => `<circle cx="${x}" cy="${y}" r="9" fill="#a98bd6" stroke="#6b4fa0" stroke-width="1"/>`;
+  const HA = (x, y) => A(x, y) + H(x + 9, y + 7);
+  const beaker = (x, title, body) => `<g transform="translate(${x},0)"><text x="110" y="20" text-anchor="middle" font-weight="700" font-size="14" fill="currentColor">${title}</text>
+    <path d="M10 34 V170 Q10 196 36 196 H184 Q210 196 210 170 V34" fill="none" stroke="currentColor" stroke-width="2.5"/>
+    <path d="M12 56 H208 V170 Q208 194 184 194 H36 Q12 194 12 170 Z" fill="#7cc3ea" opacity=".45"/>${body}</g>`;
+  const strong = [[45, 85], [150, 75], [95, 140], [175, 160]].map((p) => Cl(...p)).join("") +
+    [[100, 80], [45, 160], [160, 115], [70, 115]].map((p) => H(...p)).join("");
+  const weakPts = [[35, 72], [75, 70], [118, 74], [160, 70], [190, 92], [52, 102], [100, 104], [145, 100], [35, 135], [80, 132], [125, 138], [170, 130], [55, 168], [100, 170], [150, 168]];
+  const weak = weakPts.map((p) => HA(...p)).join("") + A(188, 165) + A(185, 125) + H(20, 112) + H(130, 120);
+  const key = (x, y, icon, label) => `<g transform="translate(${x},${y})">${icon}<text x="16" y="5" font-size="13" fill="currentColor">${label}</text></g>`;
+  return `<svg viewBox="0 0 480 270" role="img" aria-label="Particle sketch: strong dilute HCl and weak concentrated CH3COOH" style="max-width:520px;width:100%;display:block;margin:10px 0">
+    ${beaker(5, "Strong, dilute HCl", strong)}${beaker(250, "Weak, concentrated CH₃COOH", weak)}
+    ${key(20, 222, Cl(0, 0), "Cl⁻")}${key(85, 222, H(0, 0), "H⁺")}${key(140, 222, A(0, 0), "CH₃COO⁻")}${key(260, 222, HA(0, 0), "CH₃COOH (un-ionised)")}
+    <text x="20" y="258" font-size="12" fill="currentColor">Strong: only ions (fully ionised)</text><text x="260" y="258" font-size="12" fill="currentColor">Weak: mostly un-ionised molecules</text></svg>`;
+};
+
 window.QA = [
   /* ---------------------------- 11A ---------------------------- */
   {
@@ -242,6 +262,83 @@ window.QA = [
         a: "<b>D.</b> 'Weak' is about the extent of ionisation, not the number of H atoms (A) or the concentration (B, C)." },
       { n: "5", q: "The hydrogen carbonate ion, HCO3⁻, may act as an acid or a base in aqueous solution. In which equation is it acting as an acid?  A HCO3⁻ + H2O ⇌ H2CO3 + OH⁻  B HCO3⁻ + H3O⁺ ⇌ H2CO3 + H2O  C HCO3⁻ + H2O ⇌ CO3²⁻ + H3O⁺  D HCO3⁻ + OH⁻ ⇌ H2CO3 + O²⁻",
         a: "<b>C.</b> HCO<sub>3</sub><sup>−</sup> loses an H<sup>+</sup> to become CO<sub>3</sub><sup>2−</sup> – it is donating a proton, so it is the acid. In A and B it gains an H<sup>+</sup> (base)." }
+    ]
+  },
+
+  /* ------------------------- Class worksheets ------------------------- */
+  {
+    id: "WS3", section: "Worksheets", lesson: "L2", title: "Worksheet 3 – Conjugate pairs and amphiprotic species",
+    items: [
+      { n: "1", q: "Define conjugate acid and conjugate base.",
+        a: "<b>Conjugate base</b> – the species formed when an acid <b>donates (loses)</b> an H<sup>+</sup> ion.<br><b>Conjugate acid</b> – the species formed when a base <b>accepts (gains)</b> an H<sup>+</sup> ion.<br>A conjugate acid–base pair differs by <b>one H<sup>+</sup></b>, e.g. $HNO3/NO3^-$ and $H3O^+/H2O$." },
+      { n: "2", q: "Identify the conjugate pairs in $HCl + H2O -> H3O^+ + Cl^-$.",
+        a: "HCl is the acid (donates H<sup>+</sup>) and H<sub>2</sub>O is the base (accepts H<sup>+</sup>).<br>Pair 1: <b>$HCl/Cl^-$</b> (acid / conjugate base)<br>Pair 2: <b>$H3O^+/H2O$</b> (conjugate acid / base)<br>Write the acid first in each pair." },
+      { n: "3", q: "Identify both conjugate pairs in $NH3 + H2O <=> NH4^+ + OH^-$.",
+        a: "Here H<sub>2</sub>O is the acid (donates H<sup>+</sup>) and NH<sub>3</sub> is the base (accepts H<sup>+</sup>).<br>Pair 1: <b>$H2O/OH^-$</b> (acid / conjugate base)<br>Pair 2: <b>$NH4^+/NH3$</b> (conjugate acid / base)" },
+      { n: "4", q: "Write the conjugate base of H2CO3 and the conjugate acid of NH3.",
+        a: "Conjugate base of $H2CO3$: remove one H<sup>+</sup> → <b>$HCO3^-$</b> (charge goes down by 1: 0 → 1−).<br>Conjugate acid of $NH3$: add one H<sup>+</sup> → <b>$NH4^+$</b> (charge goes up by 1: 0 → 1+)." },
+      { n: "5", q: "Explain why H2O can behave as either an acid or a base.",
+        a: "Water is <b>amphiprotic</b> – it can either donate or accept a proton, depending on which species it reacts with.<br>With HNO<sub>3</sub>, water <b>accepts</b> H<sup>+</sup> (base): <span class='eq'>$HNO3(aq) + H2O(l) -> H3O^+(aq) + NO3^-(aq)$</span>With NH<sub>3</sub>, water <b>donates</b> H<sup>+</sup> (acid): <span class='eq'>$NH3(aq) + H2O(l) <=> NH4^+(aq) + OH^-(aq)$</span>" },
+      { n: "6", q: "Write an equation showing $HCO3^-$ donating a proton to water.",
+        a: "<span class='eq'>$HCO3^-(aq) + H2O(l) <=> CO3^2-(aq) + H3O^+(aq)$</span>HCO<sub>3</sub><sup>−</sup> acts as an acid. Check the charge: losing H<sup>+</sup> takes it from 1− to <b>2−</b>, so the product is CO<sub>3</sub><sup>2−</sup>." },
+      { n: "7", q: "Write an equation showing $HCO3^-$ accepting a proton from water.",
+        a: "<span class='eq'>$HCO3^-(aq) + H2O(l) <=> H2CO3(aq) + OH^-(aq)$</span>HCO<sub>3</sub><sup>−</sup> acts as a base. Gaining H<sup>+</sup> takes it from 1− to 0 (H<sub>2</sub>CO<sub>3</sub>), and water loses H<sup>+</sup> to become OH<sup>−</sup>." },
+      { n: "8", q: "Compare amphiprotic behaviour with the idea that all substances are permanently acidic or basic.",
+        a: "The idea is <b>not correct for every substance</b>. Some substances do act only as an acid or only as a base, but <b>amphiprotic</b> substances (e.g. H<sub>2</sub>O, HCO<sub>3</sub><sup>−</sup>, HSO<sub>4</sub><sup>−</sup>, H<sub>2</sub>PO<sub>4</sub><sup>−</sup>, HPO<sub>4</sub><sup>2−</sup>) can act as <b>either</b>.<br>Whether they act as an acid or a base depends on <b>what they react with</b>: water is a base with HNO<sub>3</sub> but an acid with NH<sub>3</sub>. So 'acid' or 'base' describes what a species <b>does in a reaction</b> (donate or accept H<sup>+</sup>), not a fixed label." },
+      { n: "Exit", q: "Exit check: Write one essential concept you learned and one point needing clarification.",
+        a: "This is your own reflection – there's no single right answer. An example:<br><b>Essential concept:</b> a conjugate acid–base pair differs by one H<sup>+</sup>; the acid loses H<sup>+</sup> to form its conjugate base.<br><b>Needs clarification:</b> write something you're still unsure about (e.g. 'working out the charge after H<sup>+</sup> is gained or lost') and ask your teacher or the 💬 helper." }
+    ]
+  },
+  {
+    id: "WS4", section: "Worksheets", lesson: "L2", title: "Worksheet 4 – Monoprotic and polyprotic acids",
+    items: [
+      { n: "1", q: "Define monoprotic, diprotic and triprotic acids.",
+        a: "<b>Monoprotic</b> – an acid that can donate only <b>one</b> proton (H<sup>+</sup>) per molecule, e.g. HNO<sub>3</sub>, HCl.<br><b>Diprotic</b> – an acid that can donate <b>two</b> protons per molecule, one at a time, e.g. H<sub>2</sub>SO<sub>4</sub>.<br><b>Triprotic</b> – an acid that can donate <b>three</b> protons per molecule, in three stages, e.g. H<sub>3</sub>PO<sub>4</sub>.<br>Diprotic and triprotic acids are <b>polyprotic</b> (can donate H<sup>+</sup> more than once)." },
+      { n: "2", q: "For each of the following classify the type of acid: HCl, HNO3, H2SO4, H2CO3, H3PO4.",
+        a: "<div class='table-wrap'><table class='t'><tr><th>Acid</th><th>Type</th></tr>" +
+           "<tr><td>$HCl$</td><td>Monoprotic</td></tr><tr><td>$HNO3$</td><td>Monoprotic</td></tr>" +
+           "<tr><td>$H2SO4$</td><td>Diprotic</td></tr><tr><td>$H2CO3$</td><td>Diprotic</td></tr>" +
+           "<tr><td>$H3PO4$</td><td>Triprotic</td></tr></table></div>" },
+      { n: "3", q: "Write a chemical equation for the first proton donation from H2SO4 to water.",
+        a: "<span class='eq'>$H2SO4(aq) + H2O(l) -> HSO4^-(aq) + H3O^+(aq)$</span>The first step goes to completion (full arrow)." },
+      { n: "4", q: "Write a chemical equation for the second proton donation from $HSO4^-$ to water.",
+        a: "<span class='eq'>$HSO4^-(aq) + H2O(l) <=> SO4^2-(aq) + H3O^+(aq)$</span>Reversible arrows: in water this second step only happens to a small extent (about 10% of the first step)." },
+      { n: "5", q: "Write three successive equations for H3PO4 donating protons to water.",
+        a: "<span class='eq'>(1) $H3PO4(aq) + H2O(l) <=> H2PO4^-(aq) + H3O^+(aq)$</span><span class='eq'>(2) $H2PO4^-(aq) + H2O(l) <=> HPO4^2-(aq) + H3O^+(aq)$</span><span class='eq'>(3) $HPO4^2-(aq) + H2O(l) <=> PO4^3-(aq) + H3O^+(aq)$</span>Each step removes one H<sup>+</sup>, so the charge goes down by 1 each time (0 → 1− → 2− → 3−). The 2nd and 3rd steps happen to a lower and lower extent.<br><small>Your sheet's text writes step 1 with H<sup>+</sup>(aq) and a → arrow; writing it with water forms H<sub>3</sub>O<sup>+</sup>. Phosphoric acid is listed as a weak acid, so ⇌ is the safe choice.</small>" },
+      { n: "6", q: "Identify the conjugate bases formed at each stage for phosphoric acid.",
+        a: "a. Stage 1: $H3PO4$ → <b>$H2PO4^-$</b> (dihydrogen phosphate)<br>b. Stage 2: $H2PO4^-$ → <b>$HPO4^2-$</b> (hydrogen phosphate)<br>c. Stage 3: $HPO4^2-$ → <b>$PO4^3-$</b> (phosphate)" },
+      { n: "7", q: "Explain why the formula CH3COOH does not describe a tetraprotic acid (tetra = 4).",
+        a: "CH<sub>3</sub>COOH has <b>four hydrogen atoms</b>, but only <b>one</b> of them is donated as an H<sup>+</sup> ion – the H in the –COOH group. The three H atoms in CH<sub>3</sub> stay attached:<span class='eq'>$CH3COOH(aq) + H2O(l) <=> CH3COO^-(aq) + H3O^+(aq)$</span>The conjugate base, CH<sub>3</sub>COO<sup>−</sup>, still contains CH<sub>3</sub>. So ethanoic acid is <b>monoprotic</b> (it is listed as monoprotic in Table 2), not tetraprotic.<br>Key idea: an acid is classified by the number of H<sup>+</sup> ions it can <b>donate</b>, not by the number of H atoms in its formula." },
+      { n: "8", q: "Evaluate the claim: \"A student assumes two available protons are released simultaneously from every diprotic acid.\"",
+        a: "<b>The claim is incorrect.</b><br>• A diprotic acid loses its protons <b>in stages, one at a time</b>. For sulfuric acid:<span class='eq'>(1) $H2SO4(aq) -> HSO4^-(aq) + H^+(aq)$</span><span class='eq'>(2) $HSO4^-(aq) <=> SO4^2-(aq) + H^+(aq)$</span>• The two steps do <b>not</b> happen to the same extent. In water, H<sub>2</sub>SO<sub>4</sub>'s second step only happens to about <b>10%</b> of the first.<br>• Reason: after losing the first H<sup>+</sup>, the ion is <b>negatively charged</b>. Opposite charges attract, so it is harder for the second H<sup>+</sup> to escape.<br>• The amount can change with what it reacts with. With a base such as NH<sub>3</sub>, the second proton is lost almost completely, but it is still lost after the first one.<br><b>Conclusion:</b> protons are released one after the other, and each step happens less than the one before." },
+      { n: "Exit", q: "Exit check: Write one essential concept you learned and one point needing clarification.",
+        a: "This is your own reflection. An example:<br><b>Essential concept:</b> polyprotic acids lose their protons one at a time, and each step forms a new conjugate base (H<sub>3</sub>PO<sub>4</sub> → H<sub>2</sub>PO<sub>4</sub><sup>−</sup> → HPO<sub>4</sub><sup>2−</sup> → PO<sub>4</sub><sup>3−</sup>).<br><b>Needs clarification:</b> write your own question, e.g. 'which H atoms in a formula can be donated?'" }
+    ]
+  },
+  {
+    id: "WS5", section: "Worksheets", lesson: "L3", title: "Worksheet 5 – Strong, weak, concentrated and dilute",
+    items: [
+      { n: "1", q: "Define strong acid and weak acid in terms of their ionisation in water.",
+        a: "<b>Strong acid</b> – ionises <b>completely</b> (100%) in water: every acid molecule donates its H<sup>+</sup> to form a conjugate base. Only products are present, e.g. <span class='eq'>$HCl(aq) + H2O(l) -> H3O^+(aq) + Cl^-(aq)$</span><b>Weak acid</b> – only <b>partially</b> ionises: not every acid molecule donates an H<sup>+</sup>. The solution contains both un-ionised acid molecules (reactants) and ions (products), e.g. <span class='eq'>$CH3COOH(aq) + H2O(l) <=> CH3COO^-(aq) + H3O^+(aq)$</span>" },
+      { n: "2", q: "Compare the meaning of concentrated and dilute with respect to chemical solutions.",
+        a: "<b>Concentrated</b> – a <b>large amount</b> of solute (e.g. acid) dissolved in a given volume.<br><b>Dilute</b> – a <b>small amount</b> of solute dissolved in a given volume.<br>Both describe the <b>quantity of dissolved substance per volume</b> (measured as mol L<sup>−1</sup> (M) or g L<sup>−1</sup>, c = n ÷ V). They say nothing about how much the acid ionises – that is strength. Adding or removing acid changes the concentration, not the strength." },
+      { n: "3", q: "Classify HCl as commonly strong and CH3COOH as weak.",
+        a: "<b>HCl – strong acid.</b> It ionises completely in water, so a solution of HCl is almost all H<sup>+</sup>(aq) and Cl<sup>−</sup>(aq) ions (full arrow →). It is an inorganic (mineral) acid – no carbon.<br><b>CH<sub>3</sub>COOH – weak acid.</b> It only partially ionises, so the solution is mostly CH<sub>3</sub>COOH molecules with very few CH<sub>3</sub>COO<sup>−</sup> and H<sup>+</sup> ions (reversible arrows ⇌). It is an organic acid (contains carbon) – organic acids are generally weak." },
+      { n: "4", q: "Sketch particle representations for strong dilute and weak concentrated acids and label particles.",
+        a: "Your sketch should look like this:" + window.wsSketch() +
+           "<b>Strong, dilute HCl:</b> <b>few</b> particles, and <b>all</b> of them are ions (H<sup>+</sup> and Cl<sup>−</sup>). No HCl molecules are left because it ionises completely.<br><b>Weak, concentrated CH<sub>3</sub>COOH:</b> <b>many</b> particles, and most are <b>un-ionised CH<sub>3</sub>COOH molecules</b>, with only a few CH<sub>3</sub>COO<sup>−</sup> and H<sup>+</sup> ions.<br>Remember to add a key labelling each particle." },
+      { n: "5", q: "Explain why a concentrated weak acid may have more acid particles per volume than a dilute strong acid.",
+        a: "<b>Strength</b> and <b>concentration</b> measure different things:<br>• Strength = the <b>proportion</b> of acid molecules that donate H<sup>+</sup> (depends only on the type of acid).<br>• Concentration = <b>how much</b> acid is dissolved in a given volume.<br>A <b>concentrated weak</b> acid has a very large amount of acid dissolved, e.g. 200 g L<sup>−1</sup> CH<sub>3</sub>COOH. Only a small percentage of it ionises, but there are still a lot of particles per volume, mostly un-ionised CH<sub>3</sub>COOH molecules.<br>A <b>dilute strong</b> acid has only a small amount dissolved, e.g. 4 g L<sup>−1</sup> HCl. Every molecule ionises, but there were only a few to begin with.<br>So the concentrated weak acid can contain more acid particles per volume." },
+      { n: "6", q: "Compare the difference between a single arrow and an equilibrium arrow in acid ionisation equations.",
+        a: "<div class='table-wrap'><table class='t'><tr><th></th><th>Single (full) arrow →</th><th>Equilibrium (reversible) arrows ⇌</th></tr>" +
+           "<tr><td>Used for</td><td><b>Strong</b> acids (and bases)</td><td><b>Weak</b> acids (and bases)</td></tr>" +
+           "<tr><td>Meaning</td><td>The reaction goes to <b>completion</b> – every acid molecule donates its H<sup>+</sup></td><td>The reaction is <b>only partial</b> – it goes in both directions</td></tr>" +
+           "<tr><td>What's present</td><td><b>Products only</b> (plus excess water)</td><td><b>Reactants and products</b></td></tr>" +
+           "<tr><td>Example</td><td>$HCl(aq) + H2O(l) -> H3O^+(aq) + Cl^-(aq)$</td><td>$CH3COOH(aq) + H2O(l) <=> CH3COO^-(aq) + H3O^+(aq)$</td></tr></table></div>" },
+      { n: "7", q: "Evaluate: \"If an acid is weak, it cannot cause harm.\"",
+        a: "<b>The statement is incorrect.</b><br>• 'Weak' only describes the <b>extent of ionisation</b>, meaning not every molecule donates its H<sup>+</sup>. It does not mean 'safe'. <b>Strong and weak do not mean dangerous and safe.</b><br>• Acids and bases are <b>corrosive</b>, and a weak acid can be <b>concentrated</b>. A concentrated weak acid has a large amount of acid in a given volume.<br>• Chapter example: <b>carbonic acid</b>, H<sub>2</sub>CO<sub>3</sub>, is a weak acid. Yet extra CO<sub>2</sub> forming carbonic acid in the oceans lowers ocean pH (ocean acidification). This reduces the carbonate ions that shellfish and coral need to build their shells and skeletons.<br><b>Conclusion:</b> a weak acid can still cause harm. How harmful it is depends on things like its concentration, not just its strength." },
+      { n: "Exit", q: "Exit check: Write one essential concept you learned and one point needing clarification.",
+        a: "This is your own reflection. An example:<br><b>Essential concept:</b> strength (how much an acid ionises) is different from concentration (how much acid is in a given volume). A strong acid can be dilute, and a weak acid can be concentrated.<br><b>Needs clarification:</b> write your own question, e.g. 'how do I tell from a beaker diagram whether an acid is strong or weak?'" }
     ]
   }
 ];
