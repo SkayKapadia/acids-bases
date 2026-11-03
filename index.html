@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Acids and Bases Trainer</title>
+  <meta name="description" content="Interactive, step-by-step study guide for Chapter 11: Acids and bases – lessons, checkpoint quizzes, worked answers and a final chapter test.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%AA%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true">pH</div>
+        <div><div class="brand-title">Acids &amp; Bases Trainer</div><div class="brand-sub">Chapter 11 · step-by-step study guide</div></div>
+      </div>
+      <nav class="tabs" role="tablist" aria-label="Sections">
+        <button class="tab" role="tab" data-tab="learn" aria-selected="true">📖 Learn</button>
+        <button class="tab" role="tab" data-tab="qa" aria-selected="false">📚 Q&amp;A</button>
+        <button class="tab" role="tab" data-tab="glossary" aria-selected="false">🔤 Glossary</button>
+        <button class="tab" role="tab" data-tab="final" aria-selected="false">🏁 Final test<span class="lock">🔒</span></button>
+      </nav>
+      <div class="progress-pill" title="Your progress">
+        <svg class="ring" viewBox="0 0 38 38" aria-hidden="true">
+          <circle cx="19" cy="19" r="15" fill="none" stroke="var(--surface-2)" stroke-width="5"/>
+          <circle id="ringFill" cx="19" cy="19" r="15" fill="none" stroke="var(--good)" stroke-width="5" stroke-linecap="round" stroke-dasharray="0 100" transform="rotate(-90 19 19)"/>
+          <text id="ringText" x="19" y="22.5" text-anchor="middle" font-size="9" font-weight="800" fill="var(--ink)">0%</text>
+        </svg>
+        <span id="progressLabel"></span>
+      </div>
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">🌙</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="view" id="view-learn">
+      <div class="learn">
+        <nav class="journey" id="journey" aria-label="Learning journey"></nav>
+        <div class="lesson" id="lesson"></div>
+      </div>
+    </section>
+    <section class="view" id="view-qa" hidden></section>
+    <section class="view" id="view-glossary" hidden></section>
+    <section class="view" id="view-final" hidden><div id="finalBox"></div></section>
+  </main>
+
+  <button class="chat-fab" id="chatFab" aria-expanded="false" aria-controls="chatPanel">💬 <span class="fab-text">Ask a question</span></button>
+  <div class="chat-panel" id="chatPanel" hidden role="dialog" aria-label="Chapter 11 question helper">
+    <div class="chat-head"><span style="font-size:1.5rem">🧪</span><div><b>Chapter 11 helper</b><small>Answers questions from this chapter</small></div><button id="chatClose" aria-label="Close chat">✕</button></div>
+    <div class="chat-log" id="chatLog" aria-live="polite"></div>
+    <form class="chat-form" id="chatForm"><input id="chatInput" type="text" autocomplete="off" placeholder="Type your question…" aria-label="Type your question"><button class="btn" type="submit">Send</button></form>
+  </div>
+
+  <script src="qa.js"></script>
+  <script src="lessons.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
